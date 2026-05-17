@@ -1,0 +1,103 @@
+BayesRisk Proprietary Source-Available License (BPSL) v1.0
+
+Copyright (c) 2026 BayesRisk. All rights reserved.
+
+This license is a legal agreement between the BayesRisk rights holder ("Licensor")
+and you ("You"). By accessing, copying, or using the Licensed Material, You agree
+to this license.
+
+1. Definitions
+
+"Licensed Material" means all code, text, documentation, methodology descriptions,
+scoring logic, weights, dimensions, examples, and other content made available in
+this repository by Licensor.
+
+"Non-Production Evaluation Use" means internal review, testing, and evaluation for
+research or assessment purposes only, in non-production environments, without
+commercial exploitation.
+
+"Contribution" means any submission You provide related to Licensed Material,
+including pull requests, patches, issue content, discussion posts, suggestions,
+feedback, and email submissions.
+
+2. Limited License Grant
+
+Subject to Your full compliance with this license, Licensor grants You a limited,
+non-exclusive, non-transferable, non-sublicensable, revocable license to:
+
+a) view and access the Licensed Material;
+b) clone or download the Licensed Material; and
+c) reproduce and run the Licensed Material only as technically necessary for
+   Non-Production Evaluation Use.
+
+No other rights are granted.
+
+3. Restrictions
+
+Without Licensor's prior written permission, You must not:
+
+a) modify, adapt, translate, or create derivative works of the Licensed Material;
+b) implement, recreate, or develop derivative implementations based on the
+   Licensed Material, including derivative scoring calculators or methodologies;
+c) copy, publish, distribute, transfer, sublicense, sell, lease, rent, lend, or
+   otherwise make the Licensed Material available to third parties;
+d) deploy or use the Licensed Material in production;
+e) use the Licensed Material to provide hosted, managed, SaaS, consulting, or
+   similar services for third parties;
+f) use the Licensed Material for commercial exploitation of any kind;
+g) remove or alter copyright, trademark, or proprietary notices.
+
+4. Contributions and Suggestions
+
+If You submit a Contribution, You retain ownership of Your Contribution, but You
+grant Licensor a perpetual, irrevocable, worldwide, royalty-free, fully paid,
+transferable, sublicensable license to use, copy, modify, create derivative works
+from, distribute, publicly perform, publicly display, commercialize, and relicense
+the Contribution for any purpose.
+
+Licensor has no obligation to review, accept, use, credit, or compensate You for
+any Contribution.
+
+5. Ownership and Reservation of Rights
+
+As between You and Licensor, Licensor owns and retains all right, title, and
+interest in and to the Licensed Material and all related intellectual property
+rights. All rights not expressly granted are reserved by Licensor.
+
+6. Trademarks
+
+No trademark rights are granted under this license. "BayesRisk" and related marks
+may not be used without Licensor's prior written permission.
+
+7. Term and Termination
+
+This license is effective until terminated. It terminates automatically and
+immediately if You breach any term of this license. Upon termination, You must
+cease all use of the Licensed Material and destroy all copies in Your possession
+or control.
+
+8. Hosted Service Carveout
+
+This license governs only the repository Licensed Material. Any BayesRisk website,
+application, API, or hosted service may be offered under separate terms of use,
+which control access and use of that service.
+
+9. Disclaimer of Warranties
+
+THE LICENSED MATERIAL IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTIES
+OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.
+
+10. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR WILL NOT BE LIABLE FOR ANY
+INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR
+ANY LOSS OF PROFITS, REVENUE, DATA, GOODWILL, OR BUSINESS INTERRUPTION, ARISING
+FROM OR RELATED TO THIS LICENSE OR THE LICENSED MATERIAL, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGES.
+
+11. Miscellaneous
+
+If any provision of this license is held unenforceable, the remaining provisions
+will remain in full force and effect. No waiver of any term is effective unless in
+writing and signed by Licensor.
