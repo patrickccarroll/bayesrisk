@@ -1,5 +1,5 @@
-import BayesRiskCalculator from "@/components/bayesrisk-calculator";
+import ClientOnlyCalculator from "@/components/client-only-calculator";
 
 export default function Home() {
-  return <BayesRiskCalculator />;
+  return <ClientOnlyCalculator />;
 }

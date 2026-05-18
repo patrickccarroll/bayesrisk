@@ -1,0 +1,22 @@
+{
+  "biome.configurationPath": "./calculator/biome.json",
+  "biome.lsp.bin": {
+    "darwin-arm64": "./calculator/node_modules/@biomejs/cli-darwin-arm64/biome",
+    "darwin-x64": "./calculator/node_modules/@biomejs/cli-darwin-x64/biome",
+    "linux-arm64": "./calculator/node_modules/@biomejs/cli-linux-arm64/biome",
+    "linux-x64": "./calculator/node_modules/@biomejs/cli-linux-x64/biome",
+    "win32-arm64": "./calculator/node_modules/@biomejs/cli-win32-arm64/biome.exe",
+    "win32-x64": "./calculator/node_modules/@biomejs/cli-win32-x64/biome.exe"
+  },
+  "files.watcherExclude": {
+    ".git/objects/**": true,
+    ".git/subtree-cache/**": true,
+    ".hg/store/**": true,
+    "*/.git/objects/**": true,
+    "*/.git/subtree-cache/**": true,
+    "*/.hg/store/**": true,
+    "**/.next/**": true,
+    "**/node_modules/**": true,
+  },
+  "js/ts.tsserver.maxMemory": 4096
+}

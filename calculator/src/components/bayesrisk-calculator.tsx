@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
   DEFAULT_STATE,
@@ -17,6 +18,7 @@ import {
   type PriorityLevel,
   type ScoreValue,
 } from "@/lib/bayesrisk";
+import { getScoreMeaning } from "@/lib/scoring-guide";
 
 const STORAGE_KEY = "bayesrisk:v1";
 const STORAGE_VERSION = 1;
@@ -160,6 +162,11 @@ export default function BayesRiskCalculator() {
             Formula: Raw = Sum(dimension * weight), Normalized = (Raw / {MAX_RAW_SCORE.toFixed(2)})
             * 10, Weights = {WEIGHT_SUM.toFixed(2)}
           </p>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/scoring-guide" className="action-btn">
+              Scoring Explanation Guide
+            </Link>
+          </div>
         </header>
 
         <section className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_21rem] xl:grid-cols-[minmax(0,1fr)_24rem]">
@@ -220,10 +227,16 @@ export default function BayesRiskCalculator() {
 
                           <div className="mt-2 grid grid-cols-5 gap-2">
                             {SCORE_VALUES.map((value) => {
+                              const scoreMeaning = getScoreMeaning(dimension.key, value);
+                              const tooltipText = scoreMeaning
+                                ? `${dimension.label} ${value}: ${scoreMeaning}`
+                                : `${dimension.label} ${value}`;
+
                               return (
                                 <label
                                   key={`${dimension.key}-${value}`}
                                   className="score-label"
+                                  title={tooltipText}
                                 >
                                   <input
                                     type="radio"
@@ -234,6 +247,7 @@ export default function BayesRiskCalculator() {
                                       handleDimensionChange(dimension.key, value)
                                     }
                                     className="sr-only"
+                                    aria-label={tooltipText}
                                   />
                                   <span className="score-pill">{value}</span>
                                 </label>

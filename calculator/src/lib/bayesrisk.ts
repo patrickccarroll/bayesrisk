@@ -12,7 +12,7 @@ export type DimensionKey =
   | "availabilityImpact"
   | "detectabilityGap"
   | "compensatingControls"
-  | "businessCriticality";
+  | "businessDependency";
 
 export type DimensionGroup = "Exposure" | "Impact" | "Context";
 
@@ -112,9 +112,10 @@ export const DIMENSIONS: readonly DimensionConfig[] = [
     group: "Context",
   },
   {
-    key: "businessCriticality",
-    label: "Business Criticality",
-    description: "Importance of the affected feature, workflow, or environment.",
+    key: "businessDependency",
+    label: "Business Dependency",
+    description:
+      "Degree to which the business depends on the affected component or workflow.",
     weight: 0.15,
     group: "Context",
   },
@@ -140,7 +141,7 @@ export const EXAMPLE_ONE_STATE: CalculatorState = {
   availabilityImpact: 1,
   detectabilityGap: 2,
   compensatingControls: 1,
-  businessCriticality: 2,
+  businessDependency: 2,
 };
 
 export const EXAMPLE_TWO_STATE: CalculatorState = {
@@ -153,7 +154,7 @@ export const EXAMPLE_TWO_STATE: CalculatorState = {
   availabilityImpact: 2,
   detectabilityGap: 4,
   compensatingControls: 4,
-  businessCriticality: 5,
+  businessDependency: 5,
 };
 
 export function computePriority(normalizedScore: number): PriorityLevel {

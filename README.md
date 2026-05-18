@@ -10,6 +10,8 @@ BayesRisk uses the **Bayes AppSec Priority Index**, a context-aware scoring meth
 
 ## Why BayesRisk Exists
 
+I have recreated a similar scoring approach across numerous companies I have worked for and have yet to document the approach for re-use. I've also searched for a scoring methodology specifically tailored to SaaS AppSec teams and haven't found anything useful. Hence, this repo.
+
 Application security teams often receive findings from static analysis, dynamic analysis, penetration tests, code reviews, dependency scanners, threat modeling, and manual security research.
 
 Those findings are usually labeled with severities such as:
@@ -36,7 +38,7 @@ BayesRisk exists to close that gap.
 
 BayesRisk is focused on **application security remediation priority**.
 
-It is designed for findings in application code, including issues such as:
+It is designed for findings primarily in application code, including issues such as:
 
 - Broken access control
 - IDOR
@@ -73,7 +75,78 @@ Current scoring dimensions:
 | Availability Impact | The degree to which the issue could disrupt service availability |
 | Detectability Gap | How difficult the issue would be to detect through logging, monitoring, alerting, or review |
 | Compensating Controls | Whether other controls reduce the practical likelihood or impact of exploitation |
-| Business Criticality | The importance of the affected feature, service, workflow, customer, or environment |
+| Business Dependency | The degree to which the business depends on the affected component or workflow during normal operations, regardless of the specific vulnerability impact. |
+
+---
+
+## Detailed Scoring Explanations (Provided Rubric)
+
+The following rubric captures score meanings provided for selected dimensions.
+
+Note: most rows below use a **0-5** rubric as provided. `Detectability Gap` uses a **1-5** rubric to match the current calculator model.
+In the web calculator, the same explanations are available at `/scoring-guide`.
+
+| Dimension | Score | Meaning |
+|---|---:|---|
+| Exploitability | 0 | No known exploit path |
+| Exploitability | 1 | Theoretical only |
+| Exploitability | 2 | Requires unusual conditions or deep knowledge |
+| Exploitability | 3 | Repeatable by authenticated user |
+| Exploitability | 4 | Easy to exploit with basic technical skill |
+| Exploitability | 5 | Trivially exploitable or automatable |
+| Required Access | 0 | Internal engineering/admin-only access |
+| Required Access | 1 | Support/admin role only |
+| Required Access | 2 | Privileged customer user |
+| Required Access | 3 | Any authenticated user |
+| Required Access | 4 | Self-registered/free trial user |
+| Required Access | 5 | Anonymous internet user |
+| Reachability | 0 | Not present in deployed runtime path; dead code, test-only code, disabled feature, unreachable branch |
+| Reachability | 1 | Only reachable through unusual configuration, legacy feature, rare edge case, or manually enabled feature flag |
+| Reachability | 2 | Reachable through uncommon workflow, non-default setting, low-usage feature, or unusual data state |
+| Reachability | 3 | Reachable through normal product workflow, but not a core or high-frequency path |
+| Reachability | 4 | Reachable through common/core product workflow used regularly by customers |
+| Reachability | 5 | Automatically or routinely reached by system behavior, background jobs, public APIs, login/session flows, imports, search, report generation, or other high-frequency paths |
+| Blast Radius | 0 | No meaningful impact |
+| Blast Radius | 1 | Single user |
+| Blast Radius | 2 | Multiple users in same tenant |
+| Blast Radius | 3 | Entire tenant |
+| Blast Radius | 4 | Multiple tenants possible |
+| Blast Radius | 5 | Platform-wide or systemic cross-tenant impact |
+| Data Sensitivity | 0 | No data exposure |
+| Data Sensitivity | 1 | Public/non-sensitive data |
+| Data Sensitivity | 2 | Internal metadata |
+| Data Sensitivity | 3 | Customer business data |
+| Data Sensitivity | 4 | Confidential customer data, security logs, private files |
+| Data Sensitivity | 5 | Secrets, credentials, regulated data, authentication material |
+| Integrity Impact | 0 | No ability to modify data, state, configuration, permissions, workflows, or system behavior |
+| Integrity Impact | 1 | Very limited modification of low-value personal/user-controlled fields with little or no downstream effect |
+| Integrity Impact | 2 | Unauthorized modification of low-risk records, preferences, labels, comments, metadata, or non-critical workflow state |
+| Integrity Impact | 3 | Unauthorized modification of meaningful business data, user-generated content, records, reports, or workflow outcomes within the attacker’s own tenant/context |
+| Integrity Impact | 4 | Unauthorized modification of sensitive business data, security-relevant settings, permissions, audit-relevant records, or another user’s data within a tenant |
+| Integrity Impact | 5 | Unauthorized modification across tenants, privilege/role manipulation, system configuration changes, tampering with audit/security records, or changes that compromise platform trust |
+| Availability Impact | 0 | No realistic availability impact |
+| Availability Impact | 1 | Minor inconvenience or temporary disruption to a single user session, request, or non-critical action |
+| Availability Impact | 2 | Degradation of a limited feature, low-value workflow, or small number of users; easy recovery or self-correcting |
+| Availability Impact | 3 | Meaningful disruption to a business workflow, tenant feature, background job, queue, report, import/export, or service dependency |
+| Availability Impact | 4 | Significant outage or degradation for an entire tenant, major product area, shared service, or operational process |
+| Availability Impact | 5 | Platform-wide outage, cross-tenant service degradation, resource exhaustion, persistent denial of service, or disruption requiring emergency operational response |
+| Detectability Gap | 1 | Exploitation is likely detected quickly (strong logs + alerts) |
+| Detectability Gap | 2 | Mostly detectable, but may require manual triage |
+| Detectability Gap | 3 | Detectable with effort; correlation/forensics often needed |
+| Detectability Gap | 4 | Hard to detect due to limited telemetry or weak alerting |
+| Detectability Gap | 5 | Likely to go unnoticed for a long time (major detection blind spot) |
+| Compensating Controls | 0 | No meaningful compensating controls |
+| Compensating Controls | 1 | Partial logging or limited exposure |
+| Compensating Controls | 2 | Role checks, feature flags, or rate limits reduce risk |
+| Compensating Controls | 3 | Strong access controls or segmentation reduce practical exploitability |
+| Compensating Controls | 4 | Multiple independent controls would likely block exploitation |
+| Compensating Controls | 5 | Exploit is largely impractical due to strong controls |
+| Business Dependency | 0 | Non-production, test-only, deprecated, unused, or no business dependency |
+| Business Dependency | 1 | Low-use convenience feature with little business dependency |
+| Business Dependency | 2 | Supporting feature used by some customers or internal teams, but not central to product delivery |
+| Business Dependency | 3 | Regularly used product capability or operational workflow that supports normal customer use |
+| Business Dependency | 4 | Core product capability, high-use workflow, or important operational dependency |
+| Business Dependency | 5 | Essential business function where loss, compromise, or distrust would materially affect the company’s ability to deliver the product or operate |
 
 ---
 
@@ -92,7 +165,7 @@ Raw Score =
   (Availability Impact * 0.05) +
   (Detectability Gap * 0.05) +
   (Compensating Controls * 0.10) +
-  (Business Criticality * 0.15)
+  (Business Dependency * 0.15)
 ```
 
 Each dimension is scored on a scale of **1 to 5**.
@@ -157,7 +230,7 @@ BayesRisk improves on this for AppSec use cases by making application context pa
 | Best suited for | Generic vulnerabilities, components, products, infrastructure | Application code findings |
 | Context awareness | Limited | Core part of the model |
 | Reachability | Not deeply modeled for custom code paths | Explicit scoring dimension |
-| Business criticality | Limited | Explicit scoring dimension |
+| Business dependency | Limited | Explicit scoring dimension |
 | Tenant or blast radius context | Indirect | Explicit scoring dimension |
 | Compensating controls | Limited | Explicit scoring dimension |
 | Output | Severity score | Remediation priority score |
@@ -316,6 +389,27 @@ Planned improvements may include:
 - Exportable scoring worksheets
 - JSON schema support
 - CLI or web-based calculator
+
+---
+
+## GitHub Pages Deployment
+
+This repository is configured for GitHub Pages project-site hosting at:
+
+`https://<user>.github.io/bayesrisk/`
+
+Deployment behavior:
+
+- The Next.js app in `calculator/` builds as a static export (`out/`).
+- The workflow in `.github/workflows/deploy-pages.yml` deploys on pushes to `main`.
+- `calculator/next.config.mjs` sets a CI-only `basePath` from `GITHUB_REPOSITORY`, so links/assets resolve under `/bayesrisk/` on Pages.
+- Local development remains unchanged (`npm run dev` in `calculator/` uses root-path URLs).
+
+To enable Pages deployment:
+
+1. Push this repository to GitHub.
+2. In repository settings, open **Pages** and set source to **GitHub Actions**.
+3. Push to `main` (or run the workflow manually via **Actions** -> **Deploy BayesRisk to GitHub Pages**).
 
 ---
 
