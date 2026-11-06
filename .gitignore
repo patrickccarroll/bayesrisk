@@ -33,6 +33,11 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Private runtime inputs and local data. Keep owner-specific values untracked.
+*.runtime.json
+runtime.private.*
+private-data/
+
 # vercel
 .vercel
 
