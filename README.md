@@ -10,7 +10,7 @@ BayesRisk uses the **Bayes AppSec Priority Index**, a context-aware scoring meth
 
 ## Why BayesRisk Exists
 
-I have recreated a similar scoring approach across numerous companies I have worked for and have yet to document the approach for re-use. I've also searched for a scoring methodology specifically tailored to SaaS AppSec teams and haven't found anything useful. Hence, this repo.
+SaaS application security teams need a reusable way to prioritize code-level findings with application context. Public severity and exploit-probability models do not capture that context, so this repository documents a scoring approach for that use case.
 
 Application security teams often receive findings from static analysis, dynamic analysis, penetration tests, code reviews, dependency scanners, threat modeling, and manual security research.
 
